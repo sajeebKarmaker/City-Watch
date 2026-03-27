@@ -4,12 +4,13 @@ import { useState } from 'react'
 import styles from './App.module.css'
 import { AppHeader } from './components/ui/app-header'
 import { IssuesSidebar } from './components/ui/issues-sidebar'
+import { ReportIssueModal } from './components/ui/report-issue-modal'
 import { CATEGORIES, MOCK_ISSUES } from './data/mockIssues'
 import type { Issue } from './types/issue'
 
 export default function CityWatchApp() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [_isReporting, setIsReporting] = useState(false)
+  const [isReporting, setIsReporting] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [filter, setFilter] = useState('All')
   const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null)
@@ -42,7 +43,15 @@ export default function CityWatchApp() {
           selectedIssue={selectedIssue}
           onSelectIssue={setSelectedIssue}
         />
+
+        <ReportIssueModal
+          open={isReporting}
+          onClose={() => setIsReporting(false)}
+          categories={CATEGORIES}
+        />
       </div>
+
+
     </div>
   )
 }
