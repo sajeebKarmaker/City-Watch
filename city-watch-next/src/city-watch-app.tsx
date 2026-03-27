@@ -6,14 +6,12 @@ import { AppHeader } from './components/ui/app-header'
 import { IssuesSidebar } from './components/ui/issues-sidebar'
 import { ReportIssueModal } from './components/ui/report-issue-modal'
 import { CATEGORIES, MOCK_ISSUES } from './data/mockIssues'
-import type { Issue } from './types/issue'
 
 export default function CityWatchApp() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isReporting, setIsReporting] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [filter, setFilter] = useState('All')
-  const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null)
 
   const filteredIssues = MOCK_ISSUES.filter((issue) => {
     const matchesFilter = filter === 'All' || issue.category === filter
@@ -40,8 +38,6 @@ export default function CityWatchApp() {
           activeCategory={filter}
           onCategoryChange={setFilter}
           issues={filteredIssues}
-          selectedIssue={selectedIssue}
-          onSelectIssue={setSelectedIssue}
         />
 
         <ReportIssueModal
@@ -50,8 +46,6 @@ export default function CityWatchApp() {
           categories={CATEGORIES}
         />
       </div>
-
-
     </div>
   )
 }

@@ -5,24 +5,13 @@ import { IssueCard } from './issue-card'
 
 type IssuesListProps = {
   issues: Issue[]
-  selectedIssue: Issue | null
-  onSelectIssue: (issue: Issue) => void
 }
 
-export function IssuesList({
-  issues,
-  selectedIssue,
-  onSelectIssue,
-}: IssuesListProps) {
+export function IssuesList({ issues }: IssuesListProps) {
   return (
     <div className={styles.issuesList}>
       {issues.map((issue) => (
-        <IssueCard
-          key={issue.id}
-          issue={issue}
-          selected={selectedIssue?.id === issue.id}
-          onSelect={onSelectIssue}
-        />
+        <IssueCard key={issue.id} issue={issue} />
       ))}
       {issues.length === 0 && <EmptyIssuesState />}
     </div>

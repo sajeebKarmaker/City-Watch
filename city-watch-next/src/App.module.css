@@ -223,6 +223,12 @@
   transition: all 0.2s ease;
 }
 
+.issueCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .issueCard:hover {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
@@ -534,6 +540,241 @@
 
 .modalActions button:last-child:hover {
   background-color: #1d4ed8;
+}
+
+.issueDetailsPage {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.issueDetailsContainer {
+  max-width: 900px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.detailsImage {
+  position: relative;
+  height: 280px;
+}
+
+.detailsImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detailsCategory {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.detailsCategory span {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2563eb;
+  background-color: #dbeafe;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.5rem;
+}
+
+.detailsContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.detailsHeaderText h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #171717;
+}
+
+.detailsLocation {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #737373;
+  font-size: 0.875rem;
+}
+
+.detailsLocation svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.detailsSections {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detailsSection {
+  border: 1px solid #f1f5f9;
+  border-radius: 0.875rem;
+  padding: 1rem;
+}
+
+.detailsSection h4,
+.communitySection h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #171717;
+  margin-bottom: 0.5rem;
+}
+
+.detailsSection p {
+  color: #525252;
+  line-height: 1.6;
+}
+
+.communitySection {
+  border: 1px solid #dbeafe;
+  background-color: #eff6ff;
+  border-radius: 0.875rem;
+  padding: 1rem;
+}
+
+.communitySectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.communitySectionHeader span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  background-color: #dbeafe;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.communityDescription {
+  color: #525252;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.meTooButton {
+  margin-top: 0.75rem;
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 0.625rem 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.meTooButton:hover {
+  background-color: #1d4ed8;
+}
+
+.meTooButton svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.activityLog {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.activityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.activityIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activityIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.activityContent {
+  min-width: 0;
+}
+
+.activityHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.activityHeader h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #171717;
+}
+
+.activityHeader span {
+  font-size: 0.75rem;
+  color: #a3a3a3;
+}
+
+.activityContent p {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #525252;
+}
+
+.errorContainer {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.errorButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 /* Status badge */

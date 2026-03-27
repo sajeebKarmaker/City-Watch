@@ -15,8 +15,6 @@ type IssuesSidebarProps = {
   activeCategory: string
   onCategoryChange: (category: string) => void
   issues: Issue[]
-  selectedIssue: Issue | null
-  onSelectIssue: (issue: Issue) => void
 }
 
 export function IssuesSidebar({
@@ -27,8 +25,6 @@ export function IssuesSidebar({
   activeCategory,
   onCategoryChange,
   issues,
-  selectedIssue,
-  onSelectIssue,
 }: IssuesSidebarProps) {
   return (
     <motion.aside
@@ -49,11 +45,7 @@ export function IssuesSidebar({
             onSelect={onCategoryChange}
           />
         </div>
-        <IssuesList
-          issues={issues}
-          selectedIssue={selectedIssue}
-          onSelectIssue={onSelectIssue}
-        />
+        <IssuesList issues={issues} />
       </div>
     </motion.aside>
   )
