@@ -5,12 +5,14 @@ type AppHeaderProps = {
   isSidebarOpen: boolean
   onToggleSidebar: () => void
   onReportClick: () => void
+  reportDisabled?: boolean
 }
 
 export function AppHeader({
   isSidebarOpen,
   onToggleSidebar,
   onReportClick,
+  reportDisabled = false,
 }: AppHeaderProps) {
   return (
     <header className={styles.header}>
@@ -37,6 +39,12 @@ export function AppHeader({
           type="button"
           onClick={onReportClick}
           className={styles.reportButton}
+          disabled={reportDisabled}
+          title={
+            reportDisabled
+              ? 'Drop a pin on the map first (use the pin tool)'
+              : 'Report an issue'
+          }
         >
           <Plus />
           <span>Report Issue</span>
