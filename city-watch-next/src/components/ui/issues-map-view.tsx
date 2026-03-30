@@ -7,7 +7,7 @@ import type { Issue } from '../../types/issue'
 import styles from '../../App.module.css'
 import { MapIssueMarkers } from './map-issue-markers'
 
-const MAP_CENTER = { lat: 40.7831, lng: -73.9712 }
+const MAP_CENTER = { lat: 23.777176, lng: 90.399452 }
 
 const MAP_STYLES = [
   {
