@@ -4,21 +4,21 @@ type ReportModalActionsProps = {
   cancelLabel?: string
   submitLabel?: string
   onCancel: () => void
-  onSubmit: () => void
+  disabled?: boolean
 }
 
 export function ReportModalActions({
   cancelLabel = 'Cancel',
   submitLabel = 'Submit Report',
   onCancel,
-  onSubmit,
+  disabled = false,
 }: ReportModalActionsProps) {
   return (
     <div className={styles.modalActions}>
-      <button type="button" onClick={onCancel}>
+      <button type="button" onClick={onCancel} disabled={disabled}>
         {cancelLabel}
       </button>
-      <button type="button" onClick={onSubmit}>
+      <button type="submit" disabled={disabled}>
         {submitLabel}
       </button>
     </div>

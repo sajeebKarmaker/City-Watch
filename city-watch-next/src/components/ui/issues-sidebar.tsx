@@ -15,6 +15,7 @@ type IssuesSidebarProps = {
   activeCategory: string
   onCategoryChange: (category: string) => void
   issues: Issue[]
+  listLoading?: boolean
 }
 
 export function IssuesSidebar({
@@ -25,6 +26,7 @@ export function IssuesSidebar({
   activeCategory,
   onCategoryChange,
   issues,
+  listLoading = false,
 }: IssuesSidebarProps) {
   return (
     <motion.aside
@@ -45,7 +47,7 @@ export function IssuesSidebar({
             onSelect={onCategoryChange}
           />
         </div>
-        <IssuesList issues={issues} />
+        <IssuesList issues={issues} loading={listLoading} />
       </div>
     </motion.aside>
   )

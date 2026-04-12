@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import { AlertCircle, CheckCircle2, ChevronLeft, MapPin, Plus } from 'lucide-react'
+import { CheckCircle2, ChevronLeft, MapPin, Plus } from 'lucide-react'
 import styles from '@/src/App.module.css'
 import { ActivityItem } from '@/src/components/ui/activity-item'
 import { ImageWithFallback } from '@/src/components/ui/ImageWithFallBack'
+import { IssueMeTooSection } from '@/src/components/ui/issue-me-too-section'
 import { StatusBadge } from '@/src/components/ui/status-badge'
-import { MOCK_ISSUES } from '@/src/data/mockIssues'
+import { fetchIssueById } from '@/src/lib/api/issues'
 
 type IssueDetailsPageProps = {
   params: Promise<{
@@ -14,7 +15,36 @@ type IssueDetailsPageProps = {
 
 export default async function IssueDetailsPage({ params }: IssueDetailsPageProps) {
   const { id } = await params
-  const issue = MOCK_ISSUES.find((item) => item.id === Number(id))
+  const numId = Number(id)
+  if (Number.isNaN(numId)) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.errorContainer}>
+          <h2>Issue not found</h2>
+          <Link href="/" className={styles.errorButton}>
+            Go Back Home
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  let issue
+  try {
+    issue = await fetchIssueById(numId)
+  } catch {
+    return (
+      <div className={styles.container}>
+        <div className={styles.errorContainer}>
+          <h2>Could not load issue</h2>
+          <p>Is the API running at the configured URL?</p>
+          <Link href="/" className={styles.errorButton}>
+            Go Back Home
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   if (!issue) {
     return (
@@ -74,19 +104,7 @@ export default async function IssueDetailsPage({ params }: IssueDetailsPageProps
                 <p>{issue.description}</p>
               </section>
 
-              <section className={styles.communitySection}>
-                <div className={styles.communitySectionHeader}>
-                  <h4>Community Support</h4>
-                  <span>{issue.reports} Reports</span>
-                </div>
-                <p className={styles.communityDescription}>
-                  More reports help prioritize this issue for city maintenance.
-                </p>
-                <button type="button" className={styles.meTooButton}>
-                  <AlertCircle />
-                  Me Too
-                </button>
-              </section>
+              <IssueMeTooSection issueId={issue.id} initialReports={issue.reports} />
 
               <section className={styles.detailsSection}>
                 <h4>Activity Log</h4>
