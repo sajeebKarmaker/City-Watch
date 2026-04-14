@@ -1,8 +1,8 @@
 package com.santo.CityWatch.config;
 
-import com.santo.CityWatch.issue.CreateIssueRequest;
-import com.santo.CityWatch.issue.IssueRepository;
-import com.santo.CityWatch.category.CategoryRepository;
+import com.santo.CityWatch.model.CreateIssueRequest;
+import com.santo.CityWatch.repository.CategoryRepository;
+import com.santo.CityWatch.repository.IssueRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.santo.CityWatch.issue;
+package com.santo.CityWatch.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;

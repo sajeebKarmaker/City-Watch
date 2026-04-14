@@ -1,5 +1,7 @@
-package com.santo.CityWatch.category;
+package com.santo.CityWatch.controller;
 
+import com.santo.CityWatch.model.CategoryDto;
+import com.santo.CityWatch.repository.CategoryRepository;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

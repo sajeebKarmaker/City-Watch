@@ -1,3 +1,3 @@
-package com.santo.CityWatch.category;
+package com.santo.CityWatch.model;
 
 public record CategoryDto(long id, String name) {}

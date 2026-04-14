@@ -1,5 +1,9 @@
-package com.santo.CityWatch.issue;
+package com.santo.CityWatch.service;
 
+import com.santo.CityWatch.model.CreateIssueRequest;
+import com.santo.CityWatch.model.IssueResponse;
+import com.santo.CityWatch.model.UpdateIssueRequest;
+import com.santo.CityWatch.repository.IssueRepository;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

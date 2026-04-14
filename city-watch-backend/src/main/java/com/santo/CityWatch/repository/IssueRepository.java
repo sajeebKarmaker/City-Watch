@@ -1,5 +1,8 @@
-package com.santo.CityWatch.issue;
+package com.santo.CityWatch.repository;
 
+import com.santo.CityWatch.model.CreateIssueRequest;
+import com.santo.CityWatch.model.IssueResponse;
+import com.santo.CityWatch.model.UpdateIssueRequest;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -135,3 +138,4 @@ public class IssueRepository {
         id);
   }
 }
+//entity class - jpa entity class

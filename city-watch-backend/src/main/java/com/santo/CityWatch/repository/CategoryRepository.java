@@ -1,5 +1,6 @@
-package com.santo.CityWatch.category;
+package com.santo.CityWatch.repository;
 
+import com.santo.CityWatch.model.CategoryDto;
 import java.sql.PreparedStatement;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
