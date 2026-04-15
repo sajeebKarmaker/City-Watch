@@ -1,6 +1,7 @@
 package com.santo.CityWatch.config;
 
-import com.santo.CityWatch.model.CreateIssueRequest;
+import com.santo.CityWatch.entity.CategoryEntity;
+import com.santo.CityWatch.entity.IssueEntity;
 import com.santo.CityWatch.repository.CategoryRepository;
 import com.santo.CityWatch.repository.IssueRepository;
 import org.springframework.boot.ApplicationArguments;
@@ -23,16 +24,16 @@ public class SeedDataRunner implements ApplicationRunner {
     if (categoryRepository.count() > 0) {
       return;
     }
-    var roads = categoryRepository.insert("Roads");
-    var lighting = categoryRepository.insert("Lighting");
-    var sanitation = categoryRepository.insert("Sanitation");
-    categoryRepository.insert("Vandalism");
-    categoryRepository.insert("Parks");
-    categoryRepository.insert("Other");
+    var roads = categoryRepository.save(new CategoryEntity(null, "Roads"));
+    var lighting = categoryRepository.save(new CategoryEntity(null, "Lighting"));
+    var sanitation = categoryRepository.save(new CategoryEntity(null, "Sanitation"));
+    categoryRepository.save(new CategoryEntity(null, "Vandalism"));
+    categoryRepository.save(new CategoryEntity(null, "Parks"));
+    categoryRepository.save(new CategoryEntity(null, "Other"));
 
-    issueRepository.insert(
-        new CreateIssueRequest(
-            roads.id(),
+    issueRepository.save(
+        createIssue(
+            roads,
             "Large Pothole on Main St",
             "A deep pothole is causing cars to swerve. It's about 2 feet wide.",
             "Pending",
@@ -42,9 +43,9 @@ public class SeedDataRunner implements ApplicationRunner {
             "https://images.unsplash.com/photo-1709934730506-fba12664d4e4",
             12));
 
-    issueRepository.insert(
-        new CreateIssueRequest(
-            lighting.id(),
+    issueRepository.save(
+        createIssue(
+            lighting,
             "Broken Street Light",
             "The street light at the corner of 5th and Oak is completely out.",
             "In Progress",
@@ -54,9 +55,9 @@ public class SeedDataRunner implements ApplicationRunner {
             "https://images.unsplash.com/photo-1687812693663-c322b9af62a5",
             4));
 
-    issueRepository.insert(
-        new CreateIssueRequest(
-            sanitation.id(),
+    issueRepository.save(
+        createIssue(
+            sanitation,
             "Overflowing Trash Bins",
             "Public bins have not been emptied in a week.",
             "Resolved",
@@ -65,5 +66,28 @@ public class SeedDataRunner implements ApplicationRunner {
             "Central park entrance",
             "https://images.unsplash.com/photo-1762187547870-83fbeef1afcf",
             8));
+  }
+
+  private IssueEntity createIssue(
+      CategoryEntity category,
+      String title,
+      String description,
+      String status,
+      double latitude,
+      double longitude,
+      String locationDetails,
+      String imageUrl,
+      int reportCount) {
+    IssueEntity issue = new IssueEntity();
+    issue.setCategory(category);
+    issue.setTitle(title);
+    issue.setDescription(description);
+    issue.setStatus(status);
+    issue.setLatitude(latitude);
+    issue.setLongitude(longitude);
+    issue.setLocationDetails(locationDetails);
+    issue.setImageUrl(imageUrl);
+    issue.setReportCount(reportCount);
+    return issue;
   }
 }

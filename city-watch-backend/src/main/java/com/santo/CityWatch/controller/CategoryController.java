@@ -1,5 +1,6 @@
 package com.santo.CityWatch.controller;
 
+import com.santo.CityWatch.entity.CategoryEntity;
 import com.santo.CityWatch.model.CategoryDto;
 import com.santo.CityWatch.repository.CategoryRepository;
 import java.util.List;
@@ -19,6 +20,10 @@ public class CategoryController {
 
   @GetMapping
   public List<CategoryDto> list() {
-    return categoryRepository.findAll();
+    return categoryRepository.findAllByOrderByNameAsc().stream().map(this::toDto).toList();
+  }
+
+  private CategoryDto toDto(CategoryEntity entity) {
+    return new CategoryDto(entity.getId(), entity.getName());
   }
 }
