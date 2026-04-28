@@ -17,6 +17,25 @@ type ReportIssueFormProps = {
   onSubmit: (payload: CreateIssuePayload) => Promise<void>
 }
 
+function reverseGeocodeLocation(location: { lat: number; lng: number }): Promise<string | null> {
+  if (typeof google === 'undefined' || !google.maps?.Geocoder) {
+    return Promise.resolve(null)
+  }
+
+  const geocoder = new google.maps.Geocoder()
+
+  return new Promise((resolve) => {
+    geocoder.geocode({ location }, (results, status) => {
+      if (status !== 'OK' || !results?.length) {
+        resolve(null)
+        return
+      }
+
+      resolve(results[0]?.formatted_address ?? null)
+    })
+  })
+}
+
 export function ReportIssueForm({
   categories,
   location,
@@ -36,8 +55,32 @@ export function ReportIssueForm({
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [locationDetails, setLocationDetails] = useState('')
+  const [isFetchingLocationDetails, setIsFetchingLocationDetails] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    setIsFetchingLocationDetails(true)
+
+    void reverseGeocodeLocation(location)
+      .then((formattedAddress) => {
+        if (cancelled) return
+        if (formattedAddress) {
+          setLocationDetails(formattedAddress)
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setIsFetchingLocationDetails(false)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [location.lat, location.lng])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -126,6 +169,11 @@ export function ReportIssueForm({
             value={locationDetails}
             onChange={(ev) => setLocationDetails(ev.target.value)}
           />
+          <p className={styles.reportLocationHint}>
+            {isFetchingLocationDetails
+              ? 'Looking up the address from the selected pin...'
+              : 'Auto-filled from the selected pin. You can edit it to make it more accurate.'}
+          </p>
         </ReportFormGroup>
 
         <ReportFormGroup label="Description" htmlFor="report-description">

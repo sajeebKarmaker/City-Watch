@@ -13,6 +13,12 @@ type MapIssueMarkersProps = {
   onIssueNavigate: (issueId: number) => void
 }
 
+function getMarkerTone(status: Issue['status']): string {
+  if (status === 'Resolved') return styles.markerToneResolved
+  if (status === 'In Progress') return styles.markerToneInProgress
+  return styles.markerTonePending
+}
+
 export function MapIssueMarkers({
   issues,
   zoom,
@@ -21,8 +27,8 @@ export function MapIssueMarkers({
   return (
     <>
       {issues.map((issue) => {
-        const isFarZoom = zoom < 14
         const markerScale = Math.max(0.4, Math.min(1.2, zoom / 14))
+        const markerToneClass = getMarkerTone(issue.status)
 
         return (
           <OverlayView
@@ -48,11 +54,10 @@ export function MapIssueMarkers({
                 <motion.div
                   variants={{
                     initial: {
-                      width: isFarZoom ? 16 : 44,
-                      height: isFarZoom ? 16 : 44,
+                      width: 22,
+                      height: 22,
                       borderRadius: '999px',
                       padding: '0px',
-                      borderWidth: isFarZoom ? '2px' : '2px',
                     },
                     hover: {
                       width: 280,
@@ -64,7 +69,7 @@ export function MapIssueMarkers({
                   }}
                   transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                   style={{ transformOrigin: 'center center' }}
-                  className={`${styles.markerCircle} ${isFarZoom ? styles.farZoom : ''}`}
+                  className={`${styles.markerCircle} ${markerToneClass}`}
                 >
                   <motion.div
                     variants={{
@@ -73,20 +78,7 @@ export function MapIssueMarkers({
                     }}
                     className={styles.markerMini}
                   >
-                    {isFarZoom ? (
-                      <div
-                        className={`${styles.markerDot} ${issue.status === 'Resolved' ? styles.resolved : ''}`}
-                      />
-                    ) : (
-                      <>
-                        <div className={styles.markerThumbnail}>
-                          <ImageWithFallback src={issue.image} alt={issue.title} />
-                        </div>
-                        <div
-                          className={`${styles.markerStatusDot} ${issue.status === 'Resolved' ? styles.resolved : ''}`}
-                        />
-                      </>
-                    )}
+                    <div className={styles.markerDotWrap} />
                   </motion.div>
 
                   <motion.div

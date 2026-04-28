@@ -383,12 +383,8 @@
   position: relative;
   overflow: hidden;
   border: 2px solid #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px -12px rgba(15, 23, 42, 0.45);
   background: #ffffff;
-}
-
-.markerCircle.farZoom {
-  border-color: #3b82f6;
 }
 
 .markerMini {
@@ -399,43 +395,34 @@
   justify-content: center;
 }
 
-.markerDot {
-  width: 0.5rem;
-  height: 0.5rem;
+.markerTonePending {
+  border-color: #f97316;
+}
+
+.markerToneInProgress {
+  border-color: #2563eb;
+}
+
+.markerToneResolved {
+  border-color: #16a34a;
+}
+
+.markerDotWrap {
+  width: 0.875rem;
+  height: 0.875rem;
   border-radius: 9999px;
-  background: #ef4444;
 }
 
-.markerDot.resolved {
-  background: #22c55e;
+.markerTonePending .markerDotWrap {
+  background: #f97316;
 }
 
-.markerThumbnail {
-  width: 100%;
-  height: 100%;
-  border-radius: 9999px;
-  overflow: hidden;
+.markerToneInProgress .markerDotWrap {
+  background: #2563eb;
 }
 
-.markerThumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.markerStatusDot {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 9999px;
-  border: 2px solid #ffffff;
-  background: #ef4444;
-}
-
-.markerStatusDot.resolved {
-  background: #22c55e;
+.markerToneResolved .markerDotWrap {
+  background: #16a34a;
 }
 
 .markerExpanded {
@@ -786,10 +773,13 @@
   border-radius: 1.5rem;
   width: 100%;
   max-width: 32rem;
+  max-height: min(90vh, 48rem);
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
 }
 
 .modalHeader {
@@ -830,6 +820,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .formGrid {
@@ -976,6 +968,55 @@
 
 .modalActions button:last-child:hover {
   background-color: #1d4ed8;
+}
+
+@media (max-width: 640px) {
+  .modalOverlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modalContent {
+    max-width: none;
+    max-height: min(100vh, 100dvh);
+    min-height: min(80vh, 80dvh);
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
+
+  .modalHeader {
+    padding: 1rem;
+  }
+
+  .modalHeader h3 {
+    font-size: 1.125rem;
+  }
+
+  .modalBody {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .formGrid,
+  .reportLocationGrid {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .reportLocationBox {
+    padding: 0.875rem;
+  }
+
+  .uploadArea {
+    padding: 1.25rem;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+  }
+
+  .modalActions button {
+    width: 100%;
+  }
 }
 
 .issueDetailsPage {
