@@ -3,7 +3,7 @@ package com.santo.CityWatch.controller;
 import com.santo.CityWatch.model.CreateIssueRequest;
 import com.santo.CityWatch.model.IssueResponse;
 import com.santo.CityWatch.model.UpdateIssueRequest;
-import com.santo.CityWatch.service.IssueService;
+import com.santo.CityWatch.service.interfaces.IssueService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;

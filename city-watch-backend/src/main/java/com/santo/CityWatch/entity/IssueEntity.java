@@ -34,10 +34,10 @@ public class IssueEntity {
   @Column(nullable = false, length = 32)
   private String status;
 
-  @Column(nullable = false, precision = 9, scale = 6)
+  @Column(nullable = false)
   private double latitude;
 
-  @Column(nullable = false, precision = 9, scale = 6)
+  @Column(nullable = false)
   private double longitude;
 
   @Column(name = "location_details", length = 500)

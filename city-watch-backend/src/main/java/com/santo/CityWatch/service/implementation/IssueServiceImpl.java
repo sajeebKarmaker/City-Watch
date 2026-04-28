@@ -1,4 +1,4 @@
-package com.santo.CityWatch.service;
+package com.santo.CityWatch.service.implementation;
 
 import com.santo.CityWatch.entity.CategoryEntity;
 import com.santo.CityWatch.entity.IssueEntity;
@@ -7,26 +7,29 @@ import com.santo.CityWatch.model.IssueResponse;
 import com.santo.CityWatch.model.UpdateIssueRequest;
 import com.santo.CityWatch.repository.CategoryRepository;
 import com.santo.CityWatch.repository.IssueRepository;
+import com.santo.CityWatch.service.interfaces.IssueService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class IssueService {
+public class IssueServiceImpl implements IssueService {
 
   private final IssueRepository issueRepository;
   private final CategoryRepository categoryRepository;
 
-  public IssueService(IssueRepository issueRepository, CategoryRepository categoryRepository) {
+  public IssueServiceImpl(IssueRepository issueRepository, CategoryRepository categoryRepository) {
     this.issueRepository = issueRepository;
     this.categoryRepository = categoryRepository;
   }
 
+  @Override
   public List<IssueResponse> listIssues(String category, String search) {
     return issueRepository.findAllByFilters(category, search).stream().map(this::toResponse).toList();
   }
 
+  @Override
   public IssueResponse getIssue(long id) {
     return issueRepository
         .findByIdWithCategory(id)
@@ -34,12 +37,14 @@ public class IssueService {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
   }
 
+  @Override
   public IssueResponse createIssue(CreateIssueRequest request) {
     IssueEntity issue = toEntity(request);
     IssueEntity saved = issueRepository.save(issue);
     return issueRepository.findByIdWithCategory(saved.getId()).map(this::toResponse).orElseThrow();
   }
 
+  @Override
   public IssueResponse replaceIssue(long id, UpdateIssueRequest request) {
     IssueEntity existing =
         issueRepository
@@ -53,6 +58,7 @@ public class IssueService {
     return getIssue(id);
   }
 
+  @Override
   public void deleteIssue(long id) {
     if (!issueRepository.existsById(id)) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found");
@@ -60,6 +66,7 @@ public class IssueService {
     issueRepository.deleteById(id);
   }
 
+  @Override
   public IssueResponse meToo(long id) {
     IssueEntity issue =
         issueRepository
